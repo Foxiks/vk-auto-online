@@ -1,25 +1,26 @@
-import vk_api, time, os
+import vk_api, time, os, logging
 from random import randint
 from datetime import datetime
 
-clear = lambda: os.system('cls') # Для Linux cls меняется на clear!
+#logging.basicConfig(level=logging.DEBUG, filename="vk_log.log",filemode="w")
+clear = lambda: os.system('cls')
 clear()
-level = input("Тип ввода токена (Файл/Ввод в терминал) F/T ")
+level = input("File or text: F/T ")
 if level == "F":
-    tokenvkfile = input("Путь к файлу с токеном: ",)
+    tokenvkfile = input("File with token: ",)
     tokenvkread = open(tokenvkfile,'r')
     tokenvk = tokenvkread.read()
 elif level == "T":
-    tokenvk = input("Токен: ",)
+    tokenvk = input("Token: ",)
 vk=vk_api.VkApi(token=tokenvk)
-tmin = input("Время минимум (сек) ",)
-tmax = input("Время максимум (сек) ",)
+tmin = input("Time min (sec) ",)
+tmax = input("Time max (sec) ",)
 while True:
     now = datetime.now()
     current_time = now.strftime("%H:%M:%S")
     randtime = randint(int(tmin), int(tmax))
     vk.method("account.setOnline")
-    print(current_time, "Онлайн обновлён!") 
-    print(current_time,"Следующий запрос через", int(randtime/60), "мин (сек:",randtime,")")
+    print(current_time, "Online!") 
+    print(current_time,"Next try:", int(randtime/60), "min (sec:",randtime,")")
     time.sleep(randtime)
     clear()
