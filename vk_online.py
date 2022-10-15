@@ -7,10 +7,11 @@ clear()
 level = input("Тип ввода токена (Файл/Ввод в терминал) F/T ")
 if level == "F":
     tokenvkfile = input("Путь к файлу с токеном: ",)
-    tokenvk = open(tokenvkfile,'r')
+    tokenvkread = open(tokenvkfile,'r')
+    tokenvk = tokenvkread.read()
 elif level == "T":
     tokenvk = input("Токен: ",)
-vk=vk_api.VkApi(token=tokenvk.read())
+vk=vk_api.VkApi(token=tokenvk)
 tmin = input("Время минимум (сек) ",)
 tmax = input("Время максимум (сек) ",)
 while True:
